@@ -3,7 +3,7 @@ import {
   fetchAddContact,
   fetchDeleteContact,
   fetchAllContacts,
-} from 'api/fetchContacts';
+} from 'api/contactsApi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -77,7 +77,8 @@ const contactsSlice = createSlice({
 
 
 
-export const { add, remove, filterItems } = contactsSlice.actions;
+export const { filterItems } = contactsSlice.actions;
 
-export const getItemsValue = state => state.contacts.items;
+export const fetchAllContact = state => state.contacts.items;
 export const getFilterValue = state => state.contacts.filter;
+export const contactsReducer = contactsSlice.reducer;
