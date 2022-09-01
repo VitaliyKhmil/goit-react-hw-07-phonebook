@@ -6,16 +6,17 @@ import {
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
 import * as yup from 'yup';
-import { addItem, fetchContacts } from 'redux/contacts';
+import { addItem, getItemValue } from 'redux/contacts';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const schema = yup.object().shape({
   name: yup.string().min(2).required(),
-  number: yup.string().length(7).required(),
+  number: yup.number().min(7).required(),
 });
 
 export const ContactForm = () => {
-const items = useSelector(fetchContacts);
+const items = useSelector(getItemValue);
   const dispatch = useDispatch();
   
 
@@ -25,9 +26,16 @@ const items = useSelector(fetchContacts);
       name,
       number,
     };
-    items.find(item => item.name === newContact.name)
-      ? alert(`${name} is already in contacts. `)
-      : dispatch(addItem(newContact));
+    if (
+      items.find(item =>
+        item.name.toLowerCase().includes(newContact.name.toLowerCase())
+      )
+    ) {
+      toast.info(`${newContact.name} is already in contact`);
+      return;
+    } else {
+      dispatch(addItem(newContact));
+    }
     resetForm();
   };
 

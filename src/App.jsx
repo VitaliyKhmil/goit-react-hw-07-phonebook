@@ -9,15 +9,10 @@ export const App = () => {
     return (
       <Container>
         <Title>Phonebook</Title>
-
-        <ContactForm />
-        
+        <ContactForm />        
         <Title>Contacts</Title>
-
         <ContactsFilter />
-
-        <ContactsList />
-        
+        <ContactsList />        
       </Container>
     );
   }
